@@ -25,6 +25,8 @@ import java.io.IOException;
  */
 public class GameBoard extends JPanel
 {
+    private static int xcoord;      //jframe size
+    private static int ycoord;      //jframe size
     private static int hsize;
     private static int wsize;
     private static int x;// starting
@@ -105,19 +107,28 @@ public class GameBoard extends JPanel
     {
         Graphics2D g2d = (Graphics2D) g;
         super.paintComponent(g);       //calls superclass's paint method
-        hsize = 43;
-        wsize = 123;
-	x = 300;// starting
+        
+        xpoints = new int[5];
+        ypoints = new int[5];
+        xcoord = getWidth();
+        ycoord = getHeight();
+        int width = xcoord/3;
+        int height = ycoord/3;
+        
+        int difLength = (xcoord - width) - width;
+        int ydifLength = (ycoord - height ) - height;
+        x = 230;// starting
+	y = 0;
+        
+        wsize = difLength / 3;
+        hsize = ydifLength / 7;
+        
+	x = width;// starting
 	y = 0;
         w = wsize;
         h = hsize;
-        xpoints = new int[5];
-        ypoints = new int[5];
         
         cellnumbers = new ArrayList<Point>(); //saves cell location
-         
-        g2d.setColor(Color.red);
-        g2d.fillOval(0, 0, 300, 300);
   
         g2d.setColor(Color.BLACK);
         
@@ -332,16 +343,19 @@ public class GameBoard extends JPanel
         y = y - wsize + hsize;
         x = x + hsize - (3 * wsize)+ hsize;
         
-        g2d.drawImage(image, x+42,y, null);
+      //  g2d.drawImage(image, x+42,y, null);
+        
+        g2d.setColor(Color.red);
+        g2d.fillOval(0, 0, width, height);
         
         g2d.setColor(Color.YELLOW);
-        g2d.fillOval(670, 0, 300, 300); 
+        g2d.fillOval(xcoord - width, 0, width, height); 
          
         g2d.setColor(Color.GREEN);
-        g2d.fillOval(0, 670, 300, 300);
+        g2d.fillOval(0, ycoord-height, width, height);
          
         g2d.setColor(Color.BLUE);
-        g2d.fillOval(670, 670, 300, 300);
+        g2d.fillOval(xcoord-width, ycoord - height, width, height);
         
     }
 }

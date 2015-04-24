@@ -61,8 +61,8 @@ public static void main(String args[])
         bg.add(home5);
         */
         parcheesiJFrame.add(bg);
-        parcheesiJFrame.setSize(1000,1000);                  //set frame size
-        parcheesiJFrame.setResizable(false);
+        parcheesiJFrame.setSize(700,765);                  //set frame size
+       // parcheesiJFrame.setResizable(false);
         parcheesiJFrame.setVisible(true);                  //display frame
     } //end main
 } //end class
