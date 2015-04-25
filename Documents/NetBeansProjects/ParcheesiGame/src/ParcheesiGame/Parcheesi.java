@@ -5,12 +5,16 @@
  */
 package ParcheesiGame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -18,53 +22,72 @@ import javax.swing.JPanel;
  * @author diana
  */
 public class Parcheesi {
-
-public static void main(String args[])
+    public static int numPlayers;
+    public static void main(String args[])
     {
         JFrame parcheesiJFrame = new JFrame();
         parcheesiJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        parcheesiJFrame.setSize(600,600);                  //set frame size
+        JPanel gameLayout = new JPanel();//new BorderLayout(0,10));
+        gameLayout.setLayout(new GridBagLayout());
+        gameLayout.setSize(parcheesiJFrame.getWidth(), parcheesiJFrame.getHeight());
+        gameLayout.setBorder(BorderFactory.createLineBorder(Color.black));
+        //gameLayout.set
+        //gameLayout.setBackground(Color.BLACK);
+        
+        choosePlayers();
+        //Player p = new Player("red",1);
         
         GameBoard bg = new GameBoard();
+        bg.setBorder(BorderFactory.createLineBorder(Color.black));
+        Menu menu = new Menu(numPlayers);
+        menu.setBorder(BorderFactory.createLineBorder(Color.black));
+        //menu.setSize(290, parcheesiJFrame.getHeight()-30);
         
-       /* bg.setLayout(new GridLayout(3,3));
-        bg.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = gameLayout.getHeight()+1;
+        gbc.ipadx = parcheesiJFrame.getWidth();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0; 
+        gbc.weighty  = 0;       
+        gameLayout.add(bg, gbc);
         
-        ParcheesiHomeJPanel home1 = new ParcheesiHomeJPanel();
-        home1.setColor(Color.BLUE);
-        bg.add(home1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipadx = parcheesiJFrame.getWidth()/2;
+        gbc.ipady = parcheesiJFrame.getHeight() + 9;
+        gbc.gridx = 200;
+        gbc.gridy = 0;
+        gbc.weightx = 0; 
+        gbc.weighty  = 0;
+        gameLayout.add(menu, gbc);       
         
-        JLabel lb = new JLabel("to be made");
-        bg.add(lb);
-        
-        ParcheesiHomeJPanel home2 = new ParcheesiHomeJPanel();
-        home2.setColor(Color.YELLOW);
-        bg.add(home2);
-        
-        JLabel lb2 = new JLabel("to be made2");
-        bg.add(lb2);
-        
-        JLabel lb3 = new JLabel("to be made3");
-        bg.add(lb3);
-        
-        JLabel lb4 = new JLabel("to be made4");
-        bg.add(lb4);
-        
-        ParcheesiHomeJPanel home4 = new ParcheesiHomeJPanel();
-        home4.setColor(Color.red);
-        bg.add(home4);
-        
-        JLabel lb5= new JLabel("to be made5");
-        bg.add(lb5);
-        
-        ParcheesiHomeJPanel home5 = new ParcheesiHomeJPanel();
-        home5.setColor(Color.green);
-        bg.add(home5);
-        */
-        parcheesiJFrame.add(bg);
-        parcheesiJFrame.setSize(700,765);                  //set frame size
+        parcheesiJFrame.add(gameLayout);
+        parcheesiJFrame.setSize(650,650);                  //set frame size
        // parcheesiJFrame.setResizable(false);
         parcheesiJFrame.setVisible(true);                  //display frame
     } //end main
+
+    public static void choosePlayers() 
+    {
+        while (numPlayers > 4 || numPlayers < 1) 
+        {
+            String[] options = { "1", "2", "3", "4" };
+            String x = (String) JOptionPane.showInputDialog(null,"Number of Players? (1-4)", "Parcheesi",
+					JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+            if (x == null) 
+            {
+		System.exit(0);
+	    } 
+            else 
+            {
+                numPlayers = Integer.parseInt(x);
+            }
+        }
+
+	}
 } //end class
 
 class ParcheesiHomeJPanel extends JPanel 
